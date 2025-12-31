@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base colors - Light theme */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary - Deep Indigo */
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Slate */
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* Muted */
+    --muted: 215 20% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent */
+    --accent: 215 20% 94%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 239 84% 67%;
+
+    --radius: 0.625rem;
+
+    /* Sidebar */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 215 20% 85%;
+    --sidebar-primary: 239 84% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 35% 20%;
+    --sidebar-ring: 239 84% 67%;
+    --sidebar-muted: 215 16% 47%;
+
+    /* Custom stat card colors */
+    --stat-events: 172 66% 50%;
+    --stat-events-bg: 172 66% 95%;
+    --stat-admins: 263 70% 58%;
+    --stat-admins-bg: 263 70% 95%;
+    --stat-orders: 32 95% 52%;
+    --stat-orders-bg: 32 95% 95%;
+    --stat-revenue: 152 69% 40%;
+    --stat-revenue-bg: 152 69% 95%;
+
+    /* Status colors */
+    --status-active: 152 69% 40%;
+    --status-active-bg: 152 69% 94%;
+    --status-inactive: 215 16% 47%;
+    --status-inactive-bg: 215 20% 94%;
+    --status-draft: 32 95% 52%;
+    --status-draft-bg: 32 95% 94%;
+    --status-published: 217 91% 60%;
+    --status-published-bg: 217 91% 95%;
+    --status-ongoing: 263 70% 58%;
+    --status-ongoing-bg: 263 70% 95%;
+    --status-completed: 152 69% 40%;
+    --status-completed-bg: 152 69% 94%;
+    --status-cancelled: 0 84% 60%;
+    --status-cancelled-bg: 0 84% 95%;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 215 20% 95%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 215 20% 95%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 215 20% 95%;
+
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 222 35% 20%;
+    --secondary-foreground: 215 20% 95%;
+
+    --muted: 222 35% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 222 35% 20%;
+    --accent-foreground: 215 20% 95%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 35% 20%;
+    --input: 222 35% 20%;
+    --ring: 239 84% 67%;
+
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 215 20% 85%;
+    --sidebar-primary: 239 84% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 14%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 35% 15%;
+    --sidebar-ring: 239 84% 67%;
+    --sidebar-muted: 215 16% 55%;
+
+    /* Dark mode stat colors */
+    --stat-events-bg: 172 66% 15%;
+    --stat-admins-bg: 263 70% 15%;
+    --stat-orders-bg: 32 95% 15%;
+    --stat-revenue-bg: 152 69% 15%;
+
+    /* Dark mode status colors */
+    --status-active-bg: 152 69% 15%;
+    --status-inactive-bg: 215 20% 20%;
+    --status-draft-bg: 32 95% 15%;
+    --status-published-bg: 217 91% 15%;
+    --status-ongoing-bg: 263 70% 15%;
+    --status-completed-bg: 152 69% 15%;
+    --status-cancelled-bg: 0 84% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  .ProseMirror {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .ProseMirror-focused {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Browser native contenteditable focus */
+  [contenteditable="true"]:focus,
+  [contenteditable="true"]:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@layer components {
+  /* Stat card variants */
+  .stat-card {
+    @apply relative overflow-hidden rounded-xl border bg-card p-6 transition-all duration-200;
+  }
+
+  .stat-card-events {
+    @apply border-l-4;
+    border-left-color: hsl(var(--stat-events));
+  }
+
+  .stat-card-events .stat-icon {
+    @apply text-[hsl(var(--stat-events))] bg-[hsl(var(--stat-events-bg))];
+  }
+
+  .stat-card-admins {
+    @apply border-l-4;
+    border-left-color: hsl(var(--stat-admins));
+  }
+
+  .stat-card-admins .stat-icon {
+    @apply text-[hsl(var(--stat-admins))] bg-[hsl(var(--stat-admins-bg))];
+  }
+
+  .stat-card-orders {
+    @apply border-l-4;
+    border-left-color: hsl(var(--stat-orders));
+  }
+
+  .stat-card-orders .stat-icon {
+    @apply text-[hsl(var(--stat-orders))] bg-[hsl(var(--stat-orders-bg))];
+  }
+
+  .stat-card-revenue {
+    @apply border-l-4;
+    border-left-color: hsl(var(--stat-revenue));
+  }
+
+  .stat-card-revenue .stat-icon {
+    @apply text-[hsl(var(--stat-revenue))] bg-[hsl(var(--stat-revenue-bg))];
+  }
+
+  /* Status badges */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .status-active {
+    @apply bg-[hsl(var(--status-active-bg))] text-[hsl(var(--status-active))];
+  }
+
+  .status-inactive {
+    @apply bg-[hsl(var(--status-inactive-bg))] text-[hsl(var(--status-inactive))];
+  }
+
+  .status-draft {
+    @apply bg-[hsl(var(--status-draft-bg))] text-[hsl(var(--status-draft))];
+  }
+
+  .status-published {
+    @apply bg-[hsl(var(--status-published-bg))] text-[hsl(var(--status-published))];
+  }
+
+  .status-ongoing {
+    @apply bg-[hsl(var(--status-ongoing-bg))] text-[hsl(var(--status-ongoing))];
+  }
+
+  .status-completed {
+    @apply bg-[hsl(var(--status-completed-bg))] text-[hsl(var(--status-completed))];
+  }
+
+  .status-cancelled {
+    @apply bg-[hsl(var(--status-cancelled-bg))] text-[hsl(var(--status-cancelled))];
+  }
+
+  /* Table styles */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table thead {
+    @apply bg-muted/50;
+  }
+
+  .data-table th {
+    @apply px-4 py-3 text-left font-medium text-muted-foreground;
+  }
+
+  .data-table td {
+    @apply px-4 py-3.5 border-b border-border;
+  }
+
+  .data-table tbody tr {
+    @apply transition-colors hover:bg-muted/30;
+  }
+
+  .toolbar-btn {
+    @apply px-2 py-1 rounded text-sm hover:bg-slate-100;
+  }
+
+  .toolbar-btn.active {
+    @apply bg-slate-200 font-semibold;
+  }
+
+  .tiptap-editor ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  .tiptap-editor ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+
+  .tiptap-editor li {
+    margin: 0.25rem 0;
+  }
+
+  .tiptap-editor blockquote {
+    border-left: 4px solid #000000;
+    background: #e2e2e2;
+    padding: 0.3rem 1rem;
+    border-radius: 0.375rem;
+    color: #0f172a;
+  }
+
+  .tiptap-editor a {
+    color: #2563eb; /* blue-600 */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+
+  .tiptap-editor a:hover {
+    color: #1d4ed8; /* blue-700 */
+  }
+
+  .tiptap-editor img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 0.375rem; /* rounded-md */
+    margin: 0.75rem 0;
+    display: block;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 3px;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
