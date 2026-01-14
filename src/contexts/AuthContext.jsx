@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
 
-// Mock credentials for different roles
 const MOCK_USERS = {
   SUPERADMIN: { email: 'superadmin@tiketku.id', password: 'superadmin' },
   EVENT_ADMIN: { email: 'eventadmin@tiketku.id', password: 'eventadmin' },
+  SCAN_STAFF: { email: 'scanstaff@tiketku.id', password: 'scanstaff' },
 };
 
 export function AuthProvider({ children }) {
@@ -13,48 +13,55 @@ export function AuthProvider({ children }) {
     try {
       const raw = localStorage.getItem('tiketku_auth');
       return raw ? JSON.parse(raw) : null;
-    } catch (e) {
+    } catch {
       return null;
     }
   });
 
   const login = async (email, password) => {
-    // Basic validation
     if (!email || !password) {
       throw new Error('Email dan password wajib diisi');
     }
 
-    // Check SUPERADMIN
-    if (email.toLowerCase() === MOCK_USERS.SUPERADMIN.email && password === MOCK_USERS.SUPERADMIN.password) {
-      const u = { 
-        email: MOCK_USERS.SUPERADMIN.email, 
+    const lowerEmail = email.toLowerCase();
+
+    if (lowerEmail === MOCK_USERS.SUPERADMIN.email && password === MOCK_USERS.SUPERADMIN.password) {
+      return persistUser({
+        email,
         role: 'SUPERADMIN',
-        name: 'Super Admin'
-      };
-      setUser(u);
-      try { localStorage.setItem('tiketku_auth', JSON.stringify(u)); } catch (e) {}
-      return u;
+        name: 'Super Admin',
+      });
     }
 
-    // Check EVENT_ADMIN
-    if (email.toLowerCase() === MOCK_USERS.EVENT_ADMIN.email && password === MOCK_USERS.EVENT_ADMIN.password) {
-      const u = { 
-        email: MOCK_USERS.EVENT_ADMIN.email, 
+    if (lowerEmail === MOCK_USERS.EVENT_ADMIN.email && password === MOCK_USERS.EVENT_ADMIN.password) {
+      return persistUser({
+        email,
         role: 'EVENT_ADMIN',
-        name: 'Event Admin'
-      };
-      setUser(u);
-      try { localStorage.setItem('tiketku_auth', JSON.stringify(u)); } catch (e) {}
-      return u;
+        name: 'Event Admin',
+      });
+    }
+
+    if (lowerEmail === MOCK_USERS.SCAN_STAFF.email && password === MOCK_USERS.SCAN_STAFF.password) {
+      return persistUser({
+        email,
+        role: 'SCAN_STAFF',
+        name: 'Scan Staff',
+        assignedEvents: [], // nanti dari API
+      });
     }
 
     throw new Error('Email atau password salah');
   };
 
+  const persistUser = (u) => {
+    setUser(u);
+    localStorage.setItem('tiketku_auth', JSON.stringify(u));
+    return u;
+  };
+
   const logout = () => {
     setUser(null);
-    try { localStorage.removeItem('tiketku_auth'); } catch (e) {}
-    // ensure no session-specific keys remain (we no longer use sessionStorage)
+    localStorage.removeItem('tiketku_auth');
   };
 
   return (
@@ -69,5 +76,3 @@ export function useAuth() {
   if (!ctx) throw new Error('useAuth must be used within AuthProvider');
   return ctx;
 }
-
-export default AuthContext;

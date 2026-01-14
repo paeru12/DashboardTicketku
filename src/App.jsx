@@ -22,9 +22,14 @@ import Reports from "./pages/eventadmin/Reports";
 import EventAdminOrders from "./pages/eventadmin/Orders";
 import EventAdminTickets from "./pages/eventadmin/Tickets";
 import EventAdminScanStaff from "./pages/eventadmin/ScanStaff";
-import EventAdminSettings from "./pages/eventadmin/Settings";
+import EventAdminSettings from "./pages/superadmin/Settings";
+import ScanStaffScanTicket from "./pages/scanstaff/ScanQRCode";
+import ScanStaffScanHistory from "./pages/scanstaff/ScanHistory";
+import ScanStaffSelectEvent from "./pages/scanstaff/SelectEvent";
+import ScanStaffDashboard from "./pages/scanstaff/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +53,7 @@ const App = () => (
                       map={{
                         SUPERADMIN: <Dashboard />,
                         EVENT_ADMIN: <EventAdminDashboard />,
+                        SCAN_STAFF: <ScanStaffDashboard />,
                       }}
                     />
                   }
@@ -75,12 +81,40 @@ const App = () => (
                 <Route path="/users" element={<RequireRole allowed={["SUPERADMIN"]}><Users /></RequireRole>} />
                 <Route path="/banner" element={<RequireRole allowed={["SUPERADMIN"]}><Banner /></RequireRole>} />
                 <Route path="/settings" element={<RoleRenderer map={{ SUPERADMIN: <Settings />, EVENT_ADMIN: <EventAdminSettings /> }} />} />
+                <Route path="/profile" element={<Profile />} />
 
                 {/* Event Admin-only pages */}
                 <Route path="/orders" element={<RequireRole allowed={["EVENT_ADMIN"]}><EventAdminOrders /></RequireRole>} />
                 <Route path="/tickets" element={<RequireRole allowed={["EVENT_ADMIN"]}><EventAdminTickets /></RequireRole>} />
                 <Route path="/scan-staff" element={<RequireRole allowed={["EVENT_ADMIN"]}><EventAdminScanStaff /></RequireRole>} />
+                
+                {/* SCAN STAFF */}
+                <Route
+                  path="/select-event"
+                  element={
+                    <RequireRole allowed={["SCAN_STAFF"]}>
+                      <ScanStaffSelectEvent />
+                    </RequireRole>
+                  }
+                />
+
+                <Route
+                  path="/scan-ticket"
+                  element={<RequireRole allowed={["SCAN_STAFF"]}><ScanStaffScanTicket /></RequireRole>}
+                />
+
+                <Route
+                  path="/scan-history"
+                  element={
+                    <RequireRole allowed={["SCAN_STAFF"]}>
+                      <ScanStaffScanHistory />
+                    </RequireRole>
+                  }
+                />
               </Route>
+
+              
+
 
               {/* Login route */}
               <Route path="/login" element={<Login />} />

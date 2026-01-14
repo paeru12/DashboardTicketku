@@ -39,6 +39,7 @@ const pageNames = {
   '/event-admins': 'Event Admins',
   '/users': 'Users',
   '/settings': 'Settings',
+  '/profile': 'Profile',
 };
 
 export function AppLayout() {
@@ -54,8 +55,18 @@ export function AppLayout() {
 
   // If the user manually navigates to a path that is not present in their menu,
   // show NotFound to avoid revealing routes they shouldn't access.
-  const allowedPaths = menu.map((m) => m.href);
-  const isAllowedPath = allowedPaths.some((p) => location.pathname === p || location.pathname.startsWith(p + '/'));
+  const globalAllowedPaths = [
+  "/profile",
+  ];
+  const allowedPaths = [
+    ...menu.map((m) => m.href),
+    ...globalAllowedPaths,
+  ];
+
+  const isAllowedPath = allowedPaths.some(
+    (p) => location.pathname === p || location.pathname.startsWith(p + "/")
+  );
+
   const cameFromMenu = location.state?.fromMenu === true;
   const cameFromLogin = location.state?.fromLogin === true;
 
@@ -202,8 +213,7 @@ export function AppLayout() {
                       {user?.role === 'SUPERADMIN' ? 'Super Admin' : 'Event Admin'}
                     </div>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => { try { sessionStorage.setItem('lastInternalPath', user?.role === 'SUPERADMIN' ? '/users' : '/settings'); } catch (e) {} const p = user?.role === 'SUPERADMIN' ? '/users' : '/settings'; navigate(p, { state: { fromMenu: true } }); }}>Profile</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => { try { sessionStorage.setItem('lastInternalPath', '/settings'); } catch (e) {} navigate('/settings', { state: { fromMenu: true } }); }}>Settings</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => { try { sessionStorage.setItem('lastInternalPath', '/profile'); } catch (e) {} navigate('/profile', { state: { fromMenu: true } }); }}>Profile</DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="gap-2"
